@@ -8,12 +8,8 @@
     <item android:id="@+id/history"
         android:title="History"
         app:showAsAction="never" />
-    <item android:id="@+id/bookmark"
-        android:title="Bookmark"
-        app:showAsAction="never" />
     <item android:id="@+id/survey"
         android:title="Retake Survey"
         app:showAsAction="never" />
-
 
 </menu>
