@@ -1,15 +1,13 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HistoryActivity extends AppCompatActivity {
+public class BookmarkActivity extends AppCompatActivity {
 
     /*
         a lock that prevents multiple viewMores activated when only one is allowed at a time
@@ -20,25 +18,25 @@ public class HistoryActivity extends AppCompatActivity {
         up to 10 recent searched places
     */
     LocationItem[] items = {
-            new LocationItem(R.id.item_1, "MCDONALDS", "WO, Peteours, Dorney Road 9214", "$$$$", "5.5 out of 10", "9.3 miles"),
+            new LocationItem(R.id.item_1, "CHINA FINE TASTE", "WA, Yeowo, Dally Road 114", "$", "2.5 out of 10", "7.3 miles"),
 
-            new LocationItem(R.id.item_2, "WENDYS", "OH, Marriam, Wowee Street 20", "$$", "5.9 out of 10", "1.3 miles"),
+            new LocationItem(R.id.item_2, "JOEMAMA JUICE", "NY, Amherst, Audabon Creek 45", "$$$$$", "5.1 out of 10", "32.4 miles"),
 
-            new LocationItem(R.id.item_3, "PHOVANA", "WA, Pherral, Reario Street 822, E3", "$$$$$", "9.5 out of 10", "11.8 miles"),
+            new LocationItem(R.id.item_3, "CHIPOTLE", "Ma, Waterson, Agario Street 65, E3", "$$$$$$", "8.3 out of 10", "14.8 miles"),
 
-            new LocationItem(R.id.item_4, "JUMBA JUICE", "NY, Amherst, Audabon Creek 45", "$$", "5.1 out of 10", "18.4 miles"),
+            new LocationItem(R.id.item_4, "DUFFS", "HO, Moure, Simp Sins Road", "$$", "7.1 out of 10", "11.4 miles"),
 
-            new LocationItem(R.id.item_5, "ALTER'S PIZZA", "MA, Waterson, Styke Road 73", "$$$", "2.8 out of 10", "23.3 miles"),
+            new LocationItem(R.id.item_5, "NO FLEXY ZONE", "MA, Waterson, Strea Road 4830", "$$$", "8.8 out of 10", "32.8 miles"),
 
-            new LocationItem(R.id.item_6, "DAVE'S CYBER FOODS", "NY, Queens, Downy Street 54", "$$", "9.1 out of 10", "19.3 miles"),
+            new LocationItem(R.id.item_6, "SALLY'S CAT CAFE", "NY, Queens, Loofa Pkway 327", "$$$$", "5.2 out of 10", "84.4 miles"),
 
-            new LocationItem(R.id.item_7, "YUMMY YUM YUM", "NY, Brooklyn, Delly Road 20", "$$$", "7.1 out of 10", "10.4 miles"),
+            new LocationItem(R.id.item_7, "GIN GIN", "NI, Jaollo, Houal Ave 6676", "$$$$$$", "6.3 out of 10", "74.2 miles"),
 
-            new LocationItem(R.id.item_8, "TASTE OF CHINA", "NY, Bronx, SkyHigh Street 421", "$", "3.9 out of 10", "7.3 miles"),
+            new LocationItem(R.id.item_8, "POPPAH MOLLY", "DE, Jay, Kalelid 356", "$$", "7.4 out of 10", "41.2 miles"),
 
-            new LocationItem(R.id.item_9, "INSOMNIA COOKIES", "NY, Bronx, Hilly Street 91", "$$$$$$", "4.3 out of 10", "1.9 miles"),
+            new LocationItem(R.id.item_9, "ALTER'S PIZZA", "MA, Arshe, Meallow Ave 831", "$$$", "4.3 out of 10", "63.3 miles"),
 
-            new LocationItem(R.id.item_10, "FERRACINO", "CA, Falta, Silly Valley 91", "$$$$$$$$$", "9.5 out of 10", "65.2 miles"),
+            new LocationItem(R.id.item_10, "BLYATMANNS", "RU, Shien, Vellage Bouys Street 2281", "$$$$", "9.5 out of 10", "44.2 miles"),
 
     };
 
@@ -47,7 +45,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_bookmark);
 //        _b = new Bundle();
         _intent = new Intent(this, MapsActivity.class);
 
@@ -101,7 +99,7 @@ public class HistoryActivity extends AppCompatActivity {
                 _intent.putExtra("money_rating", info.getMoneyRating());
                 _intent.putExtra("place_rating", info.getPlaceRating());
                 _intent.putExtra("distance", info.getDistance());
-                _intent.putExtra("fromWhere", "history");
+                _intent.putExtra("fromWhere", "bookmark");
                 break;
             }
         }
@@ -115,5 +113,4 @@ public class HistoryActivity extends AppCompatActivity {
         finish();
     }
 }
-
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -33,7 +35,7 @@
         <!--google maps-->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
+             (See the file "res/values/google_map5s_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
@@ -49,21 +51,23 @@
                 android:value=".MainActivity" />
         </activity>
 
-
         <!--settings-->
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_settings">
-
         </activity>
+
         <!--history-->
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_history">
-
         </activity>
 
-
+        <!--bookmark-->
+        <activity
+            android:name=".BookmarkActivity"
+            android:label="Bookmark">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -77,8 +81,6 @@
 
     <!-- Permission to receive Google Maps -->
     <uses-permission android:name="com.example.app.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <meta-data

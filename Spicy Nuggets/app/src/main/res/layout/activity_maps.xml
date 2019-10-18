@@ -20,7 +20,7 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <!--the title and address about the found food place-->
+        <!--the TITLE and ADDRESS about the found food place-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 
         </LinearLayout>
 
-        <!--   The rest of the information   -->
+        <!--   MONEY METER, RATING METER, DISTANCE   -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="goMenu"
+                android:onClick="goBack"
                 android:text="@string/cancel" />
 
             <Button
