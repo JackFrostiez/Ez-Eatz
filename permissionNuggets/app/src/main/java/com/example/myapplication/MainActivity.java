@@ -43,27 +43,25 @@ public class MainActivity extends AppCompatActivity {
         _map = sharedPref.getAll();
         System.out.println("HERE 1: "+ _map);
         //commented out temporarily for development
-        if(!sharedPref.getBoolean("SurveyTaken",false)){
-//            System.out.println("HERE 1: " + sharedPref.getBoolean("SurveyTaken",false));
-            Intent surveyIntent = new Intent(this, SurveyActivity.class);
-            startActivity(surveyIntent);
-        }
+//        if(!sharedPref.getBoolean("SurveyTaken",false)){
+//            Intent surveyIntent = new Intent(this, SurveyActivity.class);
+//            startActivity(surveyIntent);
+//        }
 
     }
-
-    private void requestStoragePermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+    private void requestPermissions() {
+        //means that it you should show some reason/rationale to the user for why permissions are necessary after they deny them
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) ||
+            ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             new AlertDialog.Builder(this)
-                    .setTitle("Permission needed")
-                    .setMessage("This permission is needed for location services")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    .setTitle("Permissions Required")
+                    .setMessage("This feature requires location and storage permissions.")
+                    .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -73,12 +71,43 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .create().show();
-
-        } else {
+        }
+        else {
             ActivityCompat.requestPermissions(this,
-                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
         }
     }
+
+//    private void requestLocationPermission() {
+//
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//
+//            new AlertDialog.Builder(this)
+//                    .setTitle("Permission needed")
+//                    .setMessage("This permission is needed for location services")
+//                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            ActivityCompat.requestPermissions(MainActivity.this,
+//                                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+//                        }
+//                    })
+//                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    })
+//                    .create().show();
+//
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+//        }
+//    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -126,15 +155,14 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the go buttonBackgroundRipple */
     public void callResult(View view) {
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            //Toast.makeText(MainActivity.this, "You have already granted this permission!",
-            //        Toast.LENGTH_SHORT).show();
-            Intent result = new Intent(this, MapsActivity.class);
-//            result.putExtra("fromWhere", "main_menu");
-            startActivity(result);
+        if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            Intent maps = new Intent(this, MapsActivity.class);
+            startActivity(maps);
+
         } else {
-            requestStoragePermission();
+            requestPermissions();
         }
     }
 

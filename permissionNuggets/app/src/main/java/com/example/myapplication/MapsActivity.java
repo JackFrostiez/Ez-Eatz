@@ -45,7 +45,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         SupportMapFragment googleMap =(SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE); //manages the location
+
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -56,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for Activity#requestPermissions for more details.
             return;
         }
+
         //Checks if the network provider is enabled
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
 
