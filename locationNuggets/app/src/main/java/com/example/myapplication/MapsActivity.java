@@ -31,6 +31,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String _fromWhere;
     private String _title, _address, _money_rating, _place_rating, _distance;
     private Intent _intent;
+
+
+
     LocationManager locationManager;
 //    private Bundle _b;
 
@@ -72,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         String str = addressList.get(0).getLocality();
                         str += addressList.get(0).getUrl();
                         mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
                     }catch (IOException e){
                         e.printStackTrace();
                     }
@@ -111,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                        String str = addressList.get(0).getLocality();
                        str += addressList.get(0).getUrl();
                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-                       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f));
+                       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
                    }catch (IOException e){
                        e.printStackTrace();
                    }
@@ -175,6 +178,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);

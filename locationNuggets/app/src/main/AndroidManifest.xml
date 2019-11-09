@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
 
+
         <!--survey-->
         <activity android:name=".SurveyActivity"
             android:label="@string/title_survey">
