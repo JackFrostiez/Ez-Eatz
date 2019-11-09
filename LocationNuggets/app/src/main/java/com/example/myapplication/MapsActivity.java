@@ -1,8 +1,16 @@
 package com.example.myapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,14 +22,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String _fromWhere;
     private String _title, _address, _money_rating, _place_rating, _distance;
     private Intent _intent;
+    LocationManager locationManager;
 //    private Bundle _b;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +44,100 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        SupportMapFragment googleMap =(SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE); //manages the location
+
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+
+        //Checks if the network provider is enabled
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double latitude = location.getLatitude(); //get the latitude
+                    double longitude = location.getLongitude(); // get the longitude
+
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    Geocoder geocoder = new Geocoder(getApplicationContext());
+                    try {
+                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                        String str = addressList.get(0).getLocality();
+                        str += addressList.get(0).getUrl();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f));
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+
+                }
+            });
+
+        }
+        else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double latitude = location.getLatitude(); //get the latitude
+                    double longitude = location.getLongitude(); // get the longitude
+
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    Geocoder geocoder = new Geocoder(getApplicationContext());
+                    try {
+                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                        String str = addressList.get(0).getLocality();
+                        str += addressList.get(0).getUrl();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f));
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+
+                }
+            });
+        }
+
 
         _intent = getIntent(); // gets the previously created _intent
 
@@ -73,9 +180,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     public void goBack(View view) {
