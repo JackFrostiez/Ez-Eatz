@@ -31,9 +31,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String _fromWhere;
     private String _title, _address, _money_rating, _place_rating, _distance;
     private Intent _intent;
-
-
-
     LocationManager locationManager;
 //    private Bundle _b;
 
@@ -180,7 +177,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
