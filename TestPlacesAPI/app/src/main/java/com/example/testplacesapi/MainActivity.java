@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    String apiKey = "AIzaSyBfcTVZbv54YYhMkYn_uldBmtEmI49kLI0";
+    String apiKey = "insert API Key";
     TextView textView;
     SharedPreferences sharedPref;
 
