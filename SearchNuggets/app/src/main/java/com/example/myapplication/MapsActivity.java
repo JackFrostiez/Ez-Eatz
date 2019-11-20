@@ -55,8 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             _type = "restaurant", //default
             _keyword = "food"; //default
 
-    //String apiKey = "insert API Key";
-    String _apiKey = "AIzaSyBfcTVZbv54YYhMkYn_uldBmtEmI49kLI0";
+    String _apiKey = "insert API Key";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
