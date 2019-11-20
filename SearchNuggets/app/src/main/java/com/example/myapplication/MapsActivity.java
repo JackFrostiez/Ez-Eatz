@@ -14,9 +14,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String _fromWhere;
     private Intent _intent;
     private TextView _searchButton;
+    private ProgressBar progressBar;
 
     //Location stuff
     private LocationManager _locationManager;
@@ -115,6 +119,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         System.out.println("OnCreated!");
+
+        Button btn = findViewById(R.id.MainButtonSearch);
+        init(); // instantiate initial progress bar
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 3000);       // Alternative method to display progress commented out below
+
+
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                i = progressBar.getProgress();
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                        while (i < 100) {
+//                            i += 1;
+//                            // Update the progress bar and display the current value in text view
+//                            hdlr.post(new Runnable() {
+//                                public void run() {
+//                                    progressBar.setProgress(i);
+//                                   // txtView.setText(i+"/"+progressBar.getMax());
+//                                }
+//                            });
+//                            try {
+//                                // Sleep for 100 milliseconds to show the progress slowly.
+//                                Thread.sleep(100);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     public LocationListener locationListenerSetUp(){
@@ -363,6 +407,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            finish();
 //        }
         finish();
+    }
+
+    private void init() {
+        this.progressBar = findViewById(R.id.pBar);   // pBar is the circle layout ID in activity main.xml
     }
 
     //redirect user back to the found food place
