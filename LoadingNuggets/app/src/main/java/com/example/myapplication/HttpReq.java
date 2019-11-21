@@ -81,7 +81,7 @@ public class HttpReq extends AsyncTask<Void, Void, Void> {
 
                 //in this place's  data, look for name category
                 System.out.println(placeInfo.get("name"));
-                item.setTitle(placeInfo.get("name").toString());
+                item.setTitle(placeInfo.get("name").toString().replace("\"", ""));
 
                 //get location data
                 JsonObject placeLocation = placeInfo.
@@ -162,6 +162,7 @@ public class HttpReq extends AsyncTask<Void, Void, Void> {
     ArrayList<LocationItem> getData(String key) {
         return _gson.fromJson(sharedPref.getString(key, null), new TypeToken<ArrayList<LocationItem>>(){}.getType());
     }
+
 
 }
 

@@ -8,15 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +27,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String _fromWhere;
     private Intent _intent;
     private TextView _searchButton;
+    private ProgressBar _progressBar;
 
     //Location stuff
     private LocationManager _locationManager;
@@ -46,7 +45,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //data stuff
     private SharedPreferences sharedPref; //to get access to the app's data
-    private ArrayList<LocationItem> _places;
+    private ArrayList<LocationItem> _places; //list of found places
+    private LocationItem[] _history;
     private LocationItem _currentPlace;
     private int _currentPlaceCursor = 0;
     private int _radius; //in meters
@@ -55,7 +55,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             _type = "restaurant", //default
             _keyword = "food"; //default
 
-    String _apiKey = "insert API Key";
+    //String apiKey = "insert API Key";
+    String _apiKey = "insert key";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -70,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        SupportMapFragment googleMap =(SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment googleMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         //checks permissions are given
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -88,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         _searchButton = (TextView) findViewById(R.id.nextButton);
 
         //Checks if either network provider or gps on
-        if (_network_enabled){
+        if (_network_enabled) {
             System.out.println("Getting initial location...");
             _locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerSetUp());
             _currentLocation = _locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -101,11 +102,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                //waits for location gets updated by the locatiomManager's listener
 //            }
 
-        }
-        else if (_gps_enabled){
+        } else if (_gps_enabled) {
             _locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerSetUp());
             _currentLocation = _locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            while(_locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null){
+            while (_locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null) {
 //            while(_currentLocation == null){
 
 //                    System.out.println("Waiting for location retrieval...");
@@ -114,7 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-        System.out.println("OnCreated!");
+        //Set up the _progressBar to display loading to user
+        _progressBar = findViewById(R.id.pBar);
+        _progressBar.setVisibility(View.VISIBLE);
     }
 
     public LocationListener locationListenerSetUp(){
@@ -223,7 +225,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //busy wait for googleMap finishes set up
 
         _places = req.getData("NearbyPlacesData");
+//        _history = sharedPref.get
         System.out.println("Got the data: " + _places);
+        _progressBar.setVisibility(View.GONE);
         updateUI(); //display the first place of the data
         mMap.addMarker(new MarkerOptions().position(_currentCoords).title(_currentPlace.getTitle()));
     }
@@ -239,31 +243,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         _currentCoords = new LatLng(_currentPlace.getLATITUDE(), _currentPlace.getLONGITUDE());
 
 
-        TextView details = (TextView) findViewById(R.id.title);
+        TextView views = (TextView) findViewById(R.id.title);
 
-        details.setText(_currentPlace.getTitle());
+        views.setText(_currentPlace.getTitle());
 
-        details = (TextView) findViewById(R.id.money_rating);
+        views = (TextView) findViewById(R.id.money_rating);
         String money_level = "";
         if(!_currentPlace.getMoneyRating().equals("N/A") ){
             for(int i = 0; i < Integer.valueOf(_currentPlace.getMoneyRating()); i++){
                 money_level = money_level + "$";
             }
-            details.setText(money_level);
+            views.setText(money_level);
 
         }
         else{
-            details.setText("N/A");
+            views.setText("N/A");
         }
 
-        details = (TextView) findViewById(R.id.place_rating);
-        details.setText(_currentPlace.getPlaceRating() + "/ 5");
+        views = (TextView) findViewById(R.id.place_rating);
+        views.setText(_currentPlace.getPlaceRating() + " / 5");
 
-        details = (TextView) findViewById(R.id.theCurrentSpot);
-        details.setText("Back to the found spot");
+        views = (TextView) findViewById(R.id.theCurrentSpot);
+        views.setText("Back to the found spot");
 
         System.out.println("Place: " + _currentPlace.getTitle());
         System.out.println( _currentCoords);
+
+        views = (TextView) findViewById(R.id.theCurrentSpot);
+        if(!views.isEnabled()){
+            views.setEnabled(true);
+        }
+        views = (TextView) findViewById(R.id.nextButton);
+        if(!views.isEnabled()){
+            views.setEnabled(true);
+        }
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(_currentCoords,19.0f));
 
@@ -283,25 +296,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //grab the next place's coords
             updateUI();
             mMap.addMarker(new MarkerOptions().position(_currentCoords).title(_currentPlace.getTitle()));
-//            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(_currentCoords,19.0f));
-        }
-    }
-
-    public void displayPreviousPlace(View view){
-
-        _currentPlaceCursor += -1;
-
-        if(_currentPlaceCursor == -1){
-            //end of the searched results, user should change settings or increase _radius
-            //for now just close it if successfully go through
-            _currentPlaceCursor = 0;
-            Toast.makeText(getApplicationContext(), "There are no previous places found", Toast.LENGTH_SHORT).show();
-
-        }
-        else{
-            //one of them is on, so we can begin searching
-            //grab the next place's coords
-            updateUI();
 //            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(_currentCoords,19.0f));
         }
     }
