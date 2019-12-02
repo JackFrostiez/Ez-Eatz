@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="SurveyChoice">#0091EA</color>
+<!--  below are our soon to be implemented color schemes  -->
+    <color name="Red">#ff4000</color>
+    <color name="RedtoOrange">#ff8000</color>
+    <color name="Orange">#e6ac00</color>
+    <color name="OrangetoYellow">#ffff66</color>
+    <color name="Yellow">#ffff1a</color>
+    <color name="White">#ffffff</color>
+
+<!--    Dark Versions-->
+    <color name="OrangeDark">#cc5200</color>
+
+
+</resources>

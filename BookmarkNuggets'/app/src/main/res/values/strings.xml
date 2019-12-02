@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">EZ-Eatz</string>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_history">History</string>
+    <string name="title_survey">Survey</string>
+
+    <string name="todo">TODO</string>
+    <string name="cancel">CANCEL</string>
+    <string name="edit_message">yuuurrr</string>
+    <string name="button_send">go!</string>
+</resources>
