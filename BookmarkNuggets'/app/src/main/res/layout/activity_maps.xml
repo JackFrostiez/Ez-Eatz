@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    Keep in mind that Z-Index is automatically applied
+        and increases priority going down the XML code       -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mapConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/InfoLinear"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MapsActivity"></fragment>
+
+        <ProgressBar
+            android:id="@+id/pBar"
+            style="?android:progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:progress="0"
+            android:progressDrawable="@drawable/circle"
+            android:scrollbarSize="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/InfoLinear"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/main">
+
+        <!--the TITLE and ADDRESS about the found food place-->
+        <!--   MONEY METER, RATING METER, DISTANCE   -->
+
+        <LinearLayout
+            android:id="@+id/InfoFirstLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:text=""
+                android:textAlignment="gravity"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/money_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:background="#ffffff"
+                android:text=""
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/place_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:background="#ffffff"
+                android:text=""
+                android:textSize="18sp"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/distance"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="#ffffff"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Distance"-->
+<!--                android:textAlignment="gravity"-->
+<!--                android:textSize="24sp" />-->
+
+        </LinearLayout>
+
+        <!--        The buttons stuff-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="50px">
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_margin="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="displayNextPlace"
+                android:enabled="false"
+                android:text="Next" />
+
+            <Button
+                android:id="@+id/theBookmark"
+                android:layout_width="match_parent"
+                android:layout_margin="20px"
+                android:layout_height="wrap_content"
+                android:onClick="bookmarkPlace"
+                android:enabled="false"
+                android:text="Bookmark" />
+
+            <Button
+                android:id="@+id/theCurrentSpot"
+                android:layout_margin="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="theCurrentPlace"
+                android:enabled="false"
+                android:text="Back To food spot" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_margin="20px"
+                android:layout_height="wrap_content"
+                android:onClick="goBack"
+                android:text="Cancel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
