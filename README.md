@@ -1,7 +1,7 @@
 # Ez Eatz
 By Jacky Eng, Eddy Chen, Dan Bielli, Danny Chen, and Michael Deng
 
-A semester project my CSE 442: Senior Software Engineering Course.
+A semester project from my CSE 442: Senior Software Engineering Course.
 
 Collaborated in an agile team developing an android app in Java that helps people find and decide on nearby eateries based on user's location.
 
