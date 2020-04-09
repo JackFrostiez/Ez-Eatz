@@ -29,5 +29,5 @@ https://www.youtube.com/watch?v=6_9kKnsaTfc
 **Discoveries/Ethics**
 * The app gives the competitive edge to food places around the consumer
 
-## Thanks for reading! I hope you enjoyed seeing our Ez Eatz app! 
+__Thanks for reading! I hope you enjoyed seeing our Ez Eatz app!__
   
