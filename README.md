@@ -3,7 +3,7 @@ By Jacky Eng, Eddy Chen, Dan Bielli, Danny Chen, and Michael Deng
 
 A semester project from my CSE 442: Senior Software Engineering Course.
 
-Collaborated in an agile team developing an android app in Java that helps people find and decide on nearby eateries based on user's location.
+Collaborated in an agile pace environment developing an android app in Java that helps people find and decide on nearby eateries based on user's location.
 
 **The learning goals of this project were:**
 * Learn to develop in an agile team pace
