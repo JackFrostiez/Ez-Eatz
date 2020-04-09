@@ -16,5 +16,18 @@ Collaborated in an agile team developing an android app in Java that helps peopl
   * Implement various Android UI concepts in Java along with XML
 * Practice documentation as well as other Software Engineering concepts
 
-## Still being updated... stay tuned!
+**For TL;DR Here's my group's presentation which you can skim through:**
+https://docs.google.com/presentation/d/1834224dg6IEILT6AX3jRWXUqF00JhfI9rtrXnV4pZuc/edit?usp=sharing
+
+**Watch our app in work:**  
+https://www.youtube.com/watch?v=6_9kKnsaTfc
+
+* The app uses location services to get user's current location
+* Using the data from **Google Place API** we can iterate through the reuslts
+* Includes features like bookmark and history!
+
+**Discoveries/Ethics**
+* The app gives the competitive edge to food places around the consumer
+
+## Thanks for reading! I hope you enjoyed seeing our Ez Eatz app! 
   
