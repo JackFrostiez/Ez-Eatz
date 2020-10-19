@@ -28,8 +28,8 @@ https://www.youtube.com/watch?v=6_9kKnsaTfc
 * Using the data from **Google Place API** we can iterate through the reuslts
 * Includes features like bookmark and history!
 
-**Discoveries/Ethics**
-* The app gives the competitive edge to food places around the consumer
+**Discoveries**
+* The app gives a competitive edge to food places that's closest to the customer's location because it shows only one rather than listing all the options at a time, causing unfairness for other eateries, that are yet to be seen, to get a fair chance at being picked. Due to this, we decided to take it down from the play store. 
 
 __Thanks for reading! I hope you enjoyed seeing our Ez Eatz app!__
   
