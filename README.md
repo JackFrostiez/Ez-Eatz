@@ -20,7 +20,9 @@ Collaborated in an agile pace environment developing an android app in Java that
 https://docs.google.com/presentation/d/1834224dg6IEILT6AX3jRWXUqF00JhfI9rtrXnV4pZuc/edit?usp=sharing
 
 **Watch our app in work:**  
-https://www.youtube.com/watch?v=6_9kKnsaTfc
+https://www.youtube.com/watch?v=6_9kKnsaTfc  
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/6_9kKnsaTfc/0.jpg)](https://www.youtube.com/watch?v=6_9kKnsaTfc)
+
 
 * The app uses location services to get user's current location
 * Using the data from **Google Place API** we can iterate through the reuslts
